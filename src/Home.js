@@ -1,20 +1,17 @@
-import React from 'react';
+import React from "react";
 function Home({ reviews }) {
-	// const [ reviews, setReviews ] = useState([]);
-	// useEffect(() => {
-	// 	fetch('/reviews').then((r) => r.json()).then(setReviews);
-	// }, []);
-	function reviewMap() {
-		return reviews.map((review) => {
-			return (
-				<h2>
-					User: {review.username.id} Review: {review.note}
-				</h2>
-			);
-		});
-	}
+  // const [ reviews, setReviews ] = useState([]);
+  // useEffect(() => {
+  // 	fetch('/reviews').then((r) => r.json()).then(setReviews);
+  // }, []);
 
-	return <div>{reviewMap()}</div>;
+  const listItems = reviews.map((r) => <li key={r.id}>{r.note}</li>);
+  return (
+	  <div>
+	  { listItems }
+	  </div>
+	 
+ );
 }
 
 export default Home;

@@ -9,6 +9,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 function App() {
 	const [ user, setUser ] = useState(null);
 	const [ reviews, setReviews ] = useState([]);
+  const [ bakeItems, setBakeItems ] = useState([]);
 
 	useEffect(() => {
 		fetch('/me').then((response) => {
@@ -16,6 +17,15 @@ function App() {
 				response.json().then((user) => setUser(user));
 			}
 		});
+	}, []);
+
+  
+
+//getting bakery items
+	useEffect(() => {
+		fetch('/bakeries')
+    .then((r) => r.json())
+    .then((item) => {setBakeItems(item)}) ;
 	}, []);
 
 	function handleLogin(user) {
@@ -46,7 +56,7 @@ function App() {
 						<Login onLogin={handleLogin} review={reviews} />
 					</Route>
 					<Route exact path="/">
-						<Home reviews={reviews} />
+						<Home bakeItems={bakeItems} setBakeItems={setBakeItems} reviews={reviews}/>
 					</Route>
 					<Route exact path="/reviews">
 						

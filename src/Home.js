@@ -1,28 +1,40 @@
 import React from 'react';
-function Home({ reviews }) {
-	// const [ reviews, setReviews ] = useState([]);
-	// useEffect(() => {
-	// 	fetch('/reviews').then((r) => r.json()).then(setReviews);
-	// }, []);
+function Home ({bakeItems, setBakeItems, reviews}) {
 
-	// function listItems() {
+	function getItems() {
+
+		return bakeItems.map((i) => 
+    <div>
+      
+      <p> {i.item} </p>
+      <img src={i.image} alt={i.item} />
+    </div>
+
+    );
+	}
+  console.log(getItems());
+
+  // function showRevs() {
+
 	// 	return reviews.map((r) => 
   //   <div>
       
   //     <p> {r.note} </p>
+    
   //   </div>
 
   //   );
 	// }
-	// console.log(listItems());
+	// console.log(showRevs());
 
   return (
     <>
+    <p>Here are our sweets!</p>
+    {getItems()}
+    {/* <p> here are the reviews </p>
+    {showRevs()} */}
     ewwwww
-    </>/* <div>
-  <p>here are the reviews: </p>
-  {listItems()}
-</div> */
+    </>
   
   )
 }

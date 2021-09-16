@@ -8,6 +8,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 function App() {
 	const [ user, setUser ] = useState(null);
+	const [ reviews, setReviews ] = useState([]);
 
 	useEffect(() => {
 		fetch('/me').then((response) => {
@@ -24,6 +25,10 @@ function App() {
 	function handleLogout() {
 		setUser(null);
 	}
+		useEffect(() => {
+			fetch('/reviews').then((r) => r.json()).then(setReviews);
+		}, []);
+	
 
 	return (
 		<div className="App">
@@ -35,6 +40,9 @@ function App() {
 					</Route>
 					<Route exact path="/">
 						<Home />
+					</Route>
+					<Route exact path="/reviews">
+						<Home reviews = {reviews} />
 					</Route>
 				</Switch>
 			</BrowserRouter>

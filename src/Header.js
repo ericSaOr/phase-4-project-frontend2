@@ -12,9 +12,8 @@ function Header({ user, onLogout }) {
 	return (
 		<header>
 			<BrowserRouter>
-				<h1>
-					<h1>LOG IN PLEASE</h1>
-				</h1>
+				<h1>LOG IN PLEASE</h1>
+
 				{user ? (
 					<div>
 						<p>Welcome, {user.username}!</p>
@@ -22,7 +21,6 @@ function Header({ user, onLogout }) {
 					</div>
 				) : (
 					<Link to="/login">Click Here to Login</Link>
-
 				)}
 			</BrowserRouter>
 		</header>

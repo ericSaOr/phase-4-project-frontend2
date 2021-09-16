@@ -38,7 +38,8 @@ function App() {
 	return (
 		<div className="App">
 			{/* <div>{listItems}</div> */}
-			<Header user={user} onLogout={handleLogout} />
+			<Header user={user} onLogout={handleLogout} 
+      reviews={reviews}/>
 			<BrowserRouter>
 				<Switch>
 					<Route exact path="/login">

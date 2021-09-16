@@ -5,12 +5,26 @@ function Home({ reviews }) {
 	// 	fetch('/reviews').then((r) => r.json()).then(setReviews);
 	// }, []);
 
-	function listItems() {
-		return reviews.map((r) => <li key={r.id}>{r.note}</li>);
-	}
-	console.log(listItems());
+	// function listItems() {
+	// 	return reviews.map((r) => 
+  //   <div>
+      
+  //     <p> {r.note} </p>
+  //   </div>
 
-	return <div>{listItems()}</div>;
+  //   );
+	// }
+	// console.log(listItems());
+
+  return (
+    <>
+    ewwwww
+    </>/* <div>
+  <p>here are the reviews: </p>
+  {listItems()}
+</div> */
+  
+  )
 }
 
 export default Home;

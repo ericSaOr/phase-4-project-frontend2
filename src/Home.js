@@ -5,9 +5,12 @@ function Home({ reviews }) {
 	// 	fetch('/reviews').then((r) => r.json()).then(setReviews);
 	// }, []);
 
-	const listItems = reviews.map((r) => <li key={r.id}>{r.note}</li>);
-	console.log(listItems);
-	return <div>{listItems}</div>;
+	function listItems() {
+		return reviews.map((r) => <li key={r.id}>{r.note}</li>);
+	}
+	console.log(listItems());
+
+	return <div>{listItems()}</div>;
 }
 
 export default Home;

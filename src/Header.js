@@ -17,6 +17,7 @@ function Header({ user, onLogout, reviews, setReviews }) {
 			<div>
 				<p> {r.note} </p>
 				<button onClick={() => handleDelete(r.id)}>DELETE</button>
+				<button onClick={() => handleEdit(r.id)}>EDIT</button>
 			</div>
 		));
 	}
@@ -53,6 +54,21 @@ function Header({ user, onLogout, reviews, setReviews }) {
 		})
 			.then((response) => response.json())
 			.then((rData) => setReviews((review) => [ ...review, rData ]));
+	}
+
+	function handleEdit(e) {
+		e.preventDefault();
+		fetch('/reviews', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				note: review
+			})
+		})
+			.then((response) => response.json())
+			.then((updatedReview) => setReviews(updatedReview));
 	}
 
 	return (

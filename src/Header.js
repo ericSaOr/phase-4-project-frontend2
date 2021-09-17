@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 function Header({ user, onLogout, reviews, setReviews }) {
 	const [ review, setReview ] = useState('');
+	const [ isEditing, setIsEditing ] = useState(false);
 
 	function handleLogout(e) {
 		e.preventDefault();
@@ -17,7 +18,7 @@ function Header({ user, onLogout, reviews, setReviews }) {
 			<div>
 				<p> {r.note} </p>
 				<button onClick={() => handleDelete(r.id)}>DELETE</button>
-				<button onClick={() => handleEdit(r.id)}>EDIT</button>
+				<button onClick={() => potato()}>EDIT</button>
 			</div>
 		));
 	}
@@ -56,7 +57,7 @@ function Header({ user, onLogout, reviews, setReviews }) {
 			.then((rData) => setReviews((review) => [ ...review, rData ]));
 	}
 
-	function handleEdit(e) {
+	function handlePost(e) {
 		e.preventDefault();
 		fetch('/reviews', {
 			method: 'PATCH',
@@ -69,6 +70,32 @@ function Header({ user, onLogout, reviews, setReviews }) {
 		})
 			.then((response) => response.json())
 			.then((updatedReview) => setReviews(updatedReview));
+	}
+
+	function handleCancel() {
+		setIsEditing(false);
+	}
+
+	function potato() {
+		return (
+			<div>
+				<form onSubmit={handlePost}>
+					<input onChange={handleChangeName} type="text" name="editReview" />
+					<button type="submit" value="save" onClick={handleEditClick()}>
+						Submit
+					</button>
+					<button type="button" onClick={handleCancel}>
+						Cancel
+					</button>
+				</form>
+			</div>
+		);
+	}
+
+	function handleEditClick(review) {
+		setIsEditing(!isEditing);
+		setReviews(review.target.value);
+		return console.log('fired');
 	}
 
 	return (

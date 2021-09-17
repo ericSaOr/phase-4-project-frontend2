@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-
 function Login({ onLogin }) {
-	const [ username, setUsername ] = useState('');	
-    
+	const [ username, setUsername ] = useState('');
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -15,7 +13,10 @@ function Login({ onLogin }) {
 			body: JSON.stringify({ username })
 		})
 			.then((r) => r.json())
-			.then((user) => onLogin(user));
+			.then((user) => {
+				console.log('LOGIN POST REQUEST', user);
+				onLogin(user);
+			});
 	}
 
 	return (

@@ -1,5 +1,5 @@
 import React from 'react';
-function Home ({bakeItems, setBakeItems, reviews}) {
+function Home ({bakeItems}) {
 
 	function getItems() {
 
@@ -31,11 +31,8 @@ function Home ({bakeItems, setBakeItems, reviews}) {
     <>
     <p>Here are our sweets!</p>
     {getItems()}
-    {/* <p> here are the reviews </p>
-    {showRevs()} */}
-    ewwwww
-    </>
-  
+    
+  </>
   )
 }
 

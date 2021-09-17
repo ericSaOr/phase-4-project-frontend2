@@ -2,7 +2,7 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import Login from './Login';
 import React, { useState, useEffect } from 'react';
 
-function Header({ user, onLogout, reviews }) {
+function Header({ user, onLogout, reviews, setReviews }) {
 	const [ review, setReview ] = useState('');
 
 	function handleLogout(e) {
@@ -16,14 +16,30 @@ function Header({ user, onLogout, reviews }) {
 		return reviews.map((r) => (
 			<div>
 				<p> {r.note} </p>
+				<button onClick={() => handleDelete(r.id)}>DELETE</button>
 			</div>
 		));
 	}
 
-	const handleChangeName = (review) => {
-        setReview(review.target.value)
-    }
+	function handleDelete(id) {
+		fetch(`/reviews/${id}`, {
+			method: 'DELETE'
+		})
+			.then((r) => r.json())
+			.then((deletedReview) => {
+				setReviews((prevReviews) => {
+					const copyReviews = [ ...prevReviews ];
+					const index = copyReviews.findIndex((review) => deletedReview.id === review.id);
+					console.log('INDEX FROM DELETE REQUEST', index);
+					copyReviews.splice(index, 1);
+					return copyReviews;
+				});
+			});
+	}
 
+	const handleChangeName = (review) => {
+		setReview(review.target.value);
+	};
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -33,15 +49,11 @@ function Header({ user, onLogout, reviews }) {
 				'Content-Type': 'application/json',
 				Accept: 'application/json'
 			},
-			body: JSON.stringify({
-				review
-			})
+			body: JSON.stringify({ note: review })
 		})
 			.then((response) => response.json())
-			.then((rData) => setReview((review) => [ ...review, rData ]));
+			.then((rData) => setReviews((review) => [ ...review, rData ]));
 	}
-
-	
 
 	return (
 		<header>
@@ -58,17 +70,15 @@ function Header({ user, onLogout, reviews }) {
 						{listItems(reviews)}
 						<br />
 
-						<form onSubmit={handleSubmit()}>
-							<input
-								onChange={handleChangeName}
-								type="text"
-								name="newReview"
-							/>
+						<form onSubmit={handleSubmit}>
+							<input onChange={handleChangeName} type="text" name="newReview" />
 							<button type="submit">Submit</button>
 						</form>
 					</div>
 				) : (
-					<p>Welcome!</p>
+					<p>
+						<Link to="/login">Click Here to Login</Link>
+					</p>
 				)}
 			</BrowserRouter>
 		</header>

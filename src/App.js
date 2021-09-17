@@ -28,7 +28,6 @@ function App() {
 
 	function handleLogin(user) {
 		setUser(user);
-		setReviews();
 	}
 
 	function handleLogout() {
@@ -38,6 +37,7 @@ function App() {
 
 	useEffect(() => {
 		fetch('/reviews').then((response) => {
+			console.log('RESPONSE FROM GET REVIEWS', response);
 			response.json().then((review) => {
 				console.log('GET REQUEST TO REVIEWS APP.JS', review);
 				setReviews(review);
@@ -46,10 +46,11 @@ function App() {
 	}, []);
 
 	//   const listItems = reviews.map((r) => <li key={r.id}>{r.note}</li>);
+	console.log('JUST BEFORE RETURN', reviews);
 	return (
 		<div className="App">
 			{/* <div>{listItems}</div> */}
-			<Header user={user} onLogout={handleLogout} reviews={reviews} />
+			<Header user={user} onLogout={handleLogout} reviews={reviews} setReviews={setReviews} />
 			<BrowserRouter>
 				<Switch>
 					<Route exact path="/login">
